@@ -42,4 +42,9 @@ public class UserController extends HttpServlet {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    private void SignIn (HttpServletRequest request, HttpServletResponse response){
+        
+        
+    }
 }
