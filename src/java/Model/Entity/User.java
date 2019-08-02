@@ -1,6 +1,6 @@
 package Model.Entity;
 
-public class Usuario {
+public class User {
     private int id;
     private String name;
     private String email;
@@ -9,10 +9,10 @@ public class Usuario {
     
     // Contrutors
 
-    public Usuario() {
+    public User() {
     }
 
-    public Usuario(int id, String name, String email, String username, String password) {
+    public User(int id, String name, String email, String username, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -61,6 +61,4 @@ public class Usuario {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
 }
