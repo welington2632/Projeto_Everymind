@@ -77,7 +77,7 @@ public class UserController extends HttpServlet {
             UserDAO dao = new UserDAO();
             if (dao.Validation(user)) {
                 user = dao.SelectUserByUsername(user);
-                request.setAttribute("User", user);
+                request.getSession(true).setAttribute("loggedUser", user);
                 request.getRequestDispatcher("/jsp/userArea.jsp").forward(request, response);
             } else {
                 request.setAttribute("messageError", "Usuário ou senha inválidos!");
@@ -91,7 +91,7 @@ public class UserController extends HttpServlet {
     private void Logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("loggedUser");
         try {
-            response.sendRedirect("/jsp/sign_in.jsp");
+            response.sendRedirect("jsp/sign_in.jsp");
         } catch (IOException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }

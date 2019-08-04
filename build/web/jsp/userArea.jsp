@@ -13,23 +13,26 @@
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
     <body>
-        <script>
-            alert("Login was a success!");
-        </script>
         <div class="container" style="margin-top:40px">
             <div class="row">
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <c:if test="${User != null}">
-                                <strong> Hello ${User.name}, you are logged in!</strong>
-                            </c:if>
-                        </div>
-                        <div class="panel-body">
-                            <form role="form" action="../logout" method="POST">
-                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Logout">
-                            </form>
-                        </div>
+                        <c:if test="${loggedUser != null}">
+                            <div class="panel-heading">
+                                <strong> Hello ${loggedUser.name}, you are logged in!</strong>
+                            </div>
+                            <div class="panel-body">
+                                <form role="form" name="userForm" action="/Desafio_Everymind/logout" method="POST" id="formValidation">
+                                    <input type="submit" class="btn btn-lg btn-primary btn-block" value="Logout">
+                                </form>
+                            </div>
+                        </c:if>
+                        <c:if test="${loggedUser == null}">
+                            <script>
+                                alert("Please login to access this area.");
+                                window.location.href = "sign_in.jsp";
+                            </script>
+                        </c:if>
                     </div>
                 </div>
             </div>
