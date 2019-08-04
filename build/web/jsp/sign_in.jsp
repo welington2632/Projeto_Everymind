@@ -1,15 +1,16 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sign Up</title>]
+        <title>Sign In</title>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <link href="css/sign_in.css" rel="stylesheet" type="text/css" />
+        <link href="<c:url value='../css/sign_in.css'/>" rel="stylesheet" text="text/css"/>
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-        <script src="jquery/validator.js"></script>
     </head>
     <body>
         <div class="container" style="margin-top:40px">
@@ -17,12 +18,11 @@
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <strong> Sign Up</strong>
+                            <strong> Sign in to continue</strong>
                         </div>
                         <div class="panel-body">
-                            <form role="form" name="userForm" action="createUser" method="POST" id="formValidation">
+                            <form role="form" action="../signIn" method="POST">
                                 <fieldset>
-                                    <!-- Logo -->
                                     <div class="row">
                                         <div class="center-block">
                                             <img class="profile-img"
@@ -31,59 +31,31 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-sm-12 col-md-10  col-md-offset-1 ">
-                                            <!-- Name -->
-                                            <div class="form-group">
-                                                <label for="name">Full Name</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="glyphicon glyphicon-info-sign"></i>
-                                                    </span> 
-                                                    <input class="form-control" name="name" type="text" id="name" autofocus required>
-                                                </div>
-                                            </div>
-                                            <!-- E-mail -->
-                                            <div class="form-group">
-                                                <label for="email">E-mail</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="glyphicon glyphicon-envelope"></i>
-                                                    </span> 
-                                                    <input class="form-control" name="email" type="email" id="email" autofocus required>
-                                                </div>
-                                            </div>
                                             <!-- Username -->
                                             <div class="form-group">
-                                                <label for="username">Username</label>
+                                                <label>Username</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
                                                         <i class="glyphicon glyphicon-user"></i>
-                                                    </span>
-                                                    <input class="form-control alert-sucess" name="username" type="text" id="usuername" autofocus required>
+                                                    </span> 
+                                                    <input class="form-control" name="username" type="text" autofocus required>
                                                 </div>
                                             </div>
                                             <!-- Password -->
                                             <div class="form-group">
-                                                <label for="password">Password</label>
-
+                                                <label>Password</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon">
                                                         <i class="glyphicon glyphicon-lock"></i>
                                                     </span>
-                                                    <input class="form-control"  name="password" type="password" id="password" value="" required>
+                                                    <input class="form-control" name="password" type="password" value="" required>
                                                 </div>
                                             </div>
-                                            <!-- Confirm Password -->
+                                            <c:if test="${messageError != null}">
+                                                <div><span>${messageError}</span></div>
+                                            </c:if>
                                             <div class="form-group">
-                                                <label for="confirmpassword">Confirm Password</label>
-                                                <div class="input-group">
-                                                    <span class="input-group-addon">
-                                                        <i class="glyphicon glyphicon-lock"></i>
-                                                    </span>
-                                                    <input class="form-control"  name="confirm_password" type="password" id="confirm_password" value="" required>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <input type="submit" id="submit" class="btn btn-lg btn-primary btn-block" onClick="return validar_form()" value="Sign up">
+                                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Sign in">
                                             </div>
                                         </div>
                                     </div>
@@ -91,8 +63,7 @@
                             </form>
                         </div>
                         <div class="panel-footer ">
-                            Have an account!
-                            <a href="sign_in.html"> Sign In Here </a>
+                            Don't have an account! <a href="sign_up.jsp"> Sign Up Here </a>
                         </div>
                     </div>
                 </div>

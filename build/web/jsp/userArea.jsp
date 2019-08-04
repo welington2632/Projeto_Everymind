@@ -13,18 +13,24 @@
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
     <body>
+        <script>
+            alert("Login was a success!");
+        </script>
         <div class="container" style="margin-top:40px">
             <div class="row">
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <strong> Error!</strong>
-                            <script>
-                                alert("${messageError}");
-                                javascript:history.back();
-                            </script>
+                            <c:if test="${User != null}">
+                                <strong> Hello ${User.name}, you are logged in!</strong>
+                            </c:if>
+                        </div>
+                        <div class="panel-body">
+                                                        <input type="button" class="btn btn-lg btn-primary btn-block" value="Back to Login page" onclick="window.location.href='jsp/sign_in.jsp';">
+
                         </div>
                     </div>
                 </div>
-                </body>
-                </html>
+            </div>
+    </body>
+</html>
