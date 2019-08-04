@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 public class UserDAO {
 
+    // Create a user in the database
     public void Create(User user) throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConexao();
         PreparedStatement comand = con.prepareStatement("insert into login (id, name, email, username, password) values (nextval('seq_login'),?,?,?,?)");
@@ -19,7 +20,8 @@ public class UserDAO {
         comand.execute();
         con.close();
     }
-
+    
+    // Validate username with password
     public boolean Validation(User user) throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConexao();
         PreparedStatement comand = con.prepareStatement("select * from login where username = ?");
@@ -34,7 +36,8 @@ public class UserDAO {
         con.close();
         return validation;
     }
-
+    
+    // Select a user by username
     public User SelectUserByUsername(User user) throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConexao();
         PreparedStatement comand = con.prepareStatement("select * from login where username = ?");
@@ -51,7 +54,8 @@ public class UserDAO {
         con.close();
         return searchUser;
     }
-
+    
+    // Select a user by e-mail
     public User SelectUserByEmail(User user) throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConexao();
         PreparedStatement comand = con.prepareStatement("select * from login where email = ?");
@@ -69,6 +73,7 @@ public class UserDAO {
         return searchUser;
     }
     
+    //Select a user by username or e-mail
     public User SelectUserByEmailAndUserName(User user) throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConexao();
         PreparedStatement comand = con.prepareStatement("select * from login where email = ? or username = ?");

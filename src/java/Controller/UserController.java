@@ -3,8 +3,6 @@ package Controller;
 import Model.DAO.UserDAO;
 import Model.Entity.User;
 import java.io.IOException;
-import static java.lang.System.out;
-import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "UserController", urlPatterns = {"/UserController", "/createUser", "/signIn","/logout"})
+@WebServlet(name = "UserController", urlPatterns = {"/UserController", "/createUser", "/signIn", "/logout"})
 public class UserController extends HttpServlet {
 
     @Override
@@ -36,11 +34,7 @@ public class UserController extends HttpServlet {
 
     private void CreateUser(HttpServletRequest request, HttpServletResponse response) {
         try {
-            // Verify password compatibility
-            if (!request.getParameter("password").equals(request.getParameter("confirm_password"))) {
-                request.setAttribute("messageError", "As senhas não são iguais, tente novamente!");
-                request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
-            }
+            // Create Entity User
             User user = new User();
             user.setName(request.getParameter("name"));
             user.setEmail(request.getParameter("email"));
@@ -48,20 +42,25 @@ public class UserController extends HttpServlet {
             user.setPassword(request.getParameter("password"));
             UserDAO dao = new UserDAO();
 
-            // Verify e-mail and username
+            // Validation User Object
             User validationUser = dao.SelectUserByEmailAndUserName(user);
-            if (validationUser.getUsername() != null || validationUser.getEmail() != null) {
+
+            if (!request.getParameter("password").equals(request.getParameter("confirm_password"))) {
+                // Verify password compatibility
+                request.setAttribute("messageError", "Divergent passwords, please try again!");
+                request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
+            } else if (validationUser.getUsername() != null || validationUser.getEmail() != null) {
+                //If you already have a registered user or email
                 validationUser = dao.SelectUserByUsername(user);
-                String messageError = validationUser.getUsername() != null ? "Username já em uso!" : "E-mail já em uso!";
+                String messageError = validationUser.getUsername() != null ? "Username already in use!" : "E-mail already in use";
                 request.setAttribute("messageError", messageError);
                 request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
-
             } else {
+                // if OK, create user in database
                 dao.Create(user);
                 request.setAttribute("User", user);
-                request.getRequestDispatcher("/jsp/sucess.jsp").forward(request,response);
+                request.getRequestDispatcher("/jsp/sucess.jsp").forward(request, response);
             }
-
         } catch (Exception ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,14 +79,14 @@ public class UserController extends HttpServlet {
                 request.getSession(true).setAttribute("loggedUser", user);
                 request.getRequestDispatcher("/jsp/userArea.jsp").forward(request, response);
             } else {
-                request.setAttribute("messageError", "Usuário ou senha inválidos!");
+                request.setAttribute("messageError", "Incorrect username or password!");
                 request.getRequestDispatcher("/jsp/error.jsp").forward(request, response);
             }
         } catch (Exception ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void Logout(HttpServletRequest request, HttpServletResponse response) {
         request.getSession().removeAttribute("loggedUser");
         try {
@@ -95,6 +94,5 @@ public class UserController extends HttpServlet {
         } catch (IOException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
 }
