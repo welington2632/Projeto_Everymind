@@ -1,3 +1,5 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="pt-br">
     <head>
@@ -16,14 +18,16 @@
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <strong>Oliveira Trade</strong>
+                            <strong> 
+                                ${User.name}, Successfully registered!</strong>
+                            <script>
+                                alert("Successfully registered, ${User.name} you can now login!");
+                            </script>
                         </div>
                         <div class="panel-body">
-                            <input type="button" class="btn btn-lg btn-primary btn-block" value="Go to Panel" onclick="window.location.href='jsp/sign_in.jsp';">
+                            <input type="button" class="btn btn-lg btn-primary btn-block" value="Go to sign in!" onclick="window.location.href = 'jsp/sign_in.jsp';">
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </body>
-</html>
+                </body>
+                </html>

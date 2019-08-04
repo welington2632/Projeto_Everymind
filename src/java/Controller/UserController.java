@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "UserController", urlPatterns = {"/UserController", "/createUser", "/signIn"})
+@WebServlet(name = "UserController", urlPatterns = {"/UserController", "/createUser", "/signIn","/logout"})
 public class UserController extends HttpServlet {
 
     @Override
@@ -29,6 +29,8 @@ public class UserController extends HttpServlet {
             CreateUser(request, response);
         } else if (uri.equals(request.getContextPath() + "/signIn")) {
             SignIn(request, response);
+        } else if (uri.equals(request.getContextPath() + "/logout")) {
+            Logout(request, response);
         }
     }
 
@@ -56,6 +58,8 @@ public class UserController extends HttpServlet {
 
             } else {
                 dao.Create(user);
+                request.setAttribute("User", user);
+                request.getRequestDispatcher("/jsp/sucess.jsp").forward(request,response);
             }
 
         } catch (Exception ex) {
@@ -82,5 +86,15 @@ public class UserController extends HttpServlet {
         } catch (Exception ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    private void Logout(HttpServletRequest request, HttpServletResponse response) {
+        request.getSession().removeAttribute("loggedUser");
+        try {
+            response.sendRedirect("/jsp/sign_in.jsp");
+        } catch (IOException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 }

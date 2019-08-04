@@ -6,9 +6,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Sign In</title>
+        <title>Sign Up</title>
         <link href="//netdna.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-        <link href="../css/sign_in.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="/Desafio_Everymind/css/sign_in.css">
         <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
     </head>
@@ -26,8 +26,9 @@
                             </c:if>
                         </div>
                         <div class="panel-body">
-                                                        <input type="button" class="btn btn-lg btn-primary btn-block" value="Back to Login page" onclick="window.location.href='jsp/sign_in.jsp';">
-
+                            <form role="form" action="../logout" method="POST">
+                                <input type="submit" class="btn btn-lg btn-primary btn-block" value="Logout">
+                            </form>
                         </div>
                     </div>
                 </div>
