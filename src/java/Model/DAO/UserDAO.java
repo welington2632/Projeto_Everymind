@@ -21,6 +21,17 @@ public class UserDAO {
         con.close();
     }
     
+    public void Update(User user) throws SQLException, ClassNotFoundException {
+        Connection con = ConnectionFactory.getConexao();
+        PreparedStatement comand = con.prepareStatement("update login set nome = ?, cnpj = ?, email = ?, senha = ?, enderecofk = ?, tipousuariofk = ? WHERE id = ?");
+        comand.setString(1, user.getName());
+        comand.setString(2, user.getEmail());
+        comand.setString(3, user.getUsername());
+        comand.setString(4, user.getPassword());
+        comand.execute();
+        con.close();
+    }
+    
     // Validate username with password
     public boolean Validation(User user) throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConexao();

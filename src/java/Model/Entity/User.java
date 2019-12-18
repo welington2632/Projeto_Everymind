@@ -6,18 +6,28 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private Endereco endereco;
     
     // Contrutors
 
     public User() {
     }
 
-    public User(int id, String name, String email, String username, String password) {
+    public User(int id, String name, String email, String username, String password, Endereco endereco) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.endereco = endereco;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
     
     // Getters and Setters
