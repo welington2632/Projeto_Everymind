@@ -1,5 +1,6 @@
 package Model.DAO;
 
+import Model.Entity.Endereco;
 import Model.Entity.User;
 import Util.ConnectionFactory;
 import java.sql.Connection;
@@ -71,6 +72,12 @@ public class UserDAO {
             searchUser.setEmail(result.getString("email"));
             searchUser.setUsername(result.getString("username"));
             searchUser.setPassword(result.getString("password"));
+            // Definindo endereço do usuário
+            EnderecoDAO enderecoDAO = new EnderecoDAO();
+            Endereco endereco = new Endereco();
+            endereco.setId(Integer.parseInt(result.getString("endereco")));
+            endereco = enderecoDAO.ConsultarId(endereco);
+            searchUser.setEndereco(endereco);
         }
         con.close();
         return searchUser;

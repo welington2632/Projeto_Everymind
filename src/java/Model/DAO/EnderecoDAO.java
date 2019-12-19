@@ -70,20 +70,21 @@ public class EnderecoDAO {
         con.close();
     }
       
-         public void ConsultarId(Endereco endereco) throws ClassNotFoundException, SQLException {
+        public Endereco ConsultarId(Endereco endereco) throws ClassNotFoundException, SQLException {
         Connection con = ConnectionFactory.getConexao();
-        PreparedStatement comando = con.prepareStatement("select id, logradouro, cep, numero, complemento from tbl_endereco where id=?");
+        PreparedStatement comando = con.prepareStatement("select id, logradouro, cep, numero, complemento from endereco where id=?");
         comando.setInt(1, endereco.getId());
         ResultSet resultado = comando.executeQuery();
 
         if (resultado.next()) {
             endereco.setId(resultado.getInt("id"));
-            endereco.setLogradouro(resultado.getString("Logradouro"));
+            endereco.setLogradouro(resultado.getString("logradouro"));
             endereco.setCep(resultado.getString("cep"));
-            endereco.setNumero(resultado.getInt("Numero"));
+            endereco.setNumero(resultado.getInt("numero"));
             endereco.setComplemento(resultado.getString("complemento"));
         }
         
         con.close();
+        return endereco;
     }
 }
