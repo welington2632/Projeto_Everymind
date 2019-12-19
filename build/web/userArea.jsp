@@ -27,7 +27,7 @@
                             <strong>${loggedUser.name} Você ainda não tem um endereço cadastrado, que tal cadastrá-lo agora?</strong>
                         </div>
                             <div class="panel-body">
-                            <form role="form" name="formValidation" action="createUser" method="POST" id="formValidation">
+                            <form role="form" name="formValidation" action="CadastraEndereco" method="POST" id="formValidation">
                                 <fieldset>
                                     <!-- Logo -->
                                     <div class="row">
@@ -39,7 +39,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="glyphicon glyphicon-info-sign"></i>
                                                     </span> 
-                                                    <input class="form-control" name="logradouro" type="text" id="name" pattern="^[A-Za-z -]+$" title="Name only accepts text" required minlength="5" maxlength="100">
+                                                    <input class="form-control" name="logradouro" type="text" id="name">
                                                 </div>
                                             </div>
                                             <!-- E-mail -->
@@ -59,7 +59,7 @@
                                                     <span class="input-group-addon">
                                                         <i class="glyphicon glyphicon-user"></i>
                                                     </span>
-                                                    <input class="form-control alert-sucess" name="numero" type="text" id="username" autofocus required pattern="^[a-z0-9_-]{3,15}$" title="Use only lowercase letters and numbers. Number of characters, minimum 3 and max 15">
+                                                    <input class="form-control alert-sucess" name="numero" type="text" id="username" autofocus required >
                                                 </div>
                                             </div>
                                             <!-- Password -->
@@ -70,11 +70,13 @@
                                                     <span class="input-group-addon">
                                                         <i class="glyphicon glyphicon-lock"></i>
                                                     </span>
-                                                    <input class="form-control"  name="complemento" type="text" id="password" required pattern="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=\S+$).{6,20}$" title="Use lowercase and uppercase letters, numbers, and special characters. Number of characters, minimum 6 and max 20">
+                                                    <input class="form-control"  name="complemento" type="text" id="password" required >
                                                 </div>
                                             </div>
                  
                                             <div class="form-group">
+                                                 <input type="hidden" id="userId" name="userId" value="${loggedUser.id}">
+
                                                 <input type="submit" id="submit" class="btn btn-lg btn-primary btn-block" onClick="return validar_form()" value="Cadastrar agora">
                                                 
                                             </div>

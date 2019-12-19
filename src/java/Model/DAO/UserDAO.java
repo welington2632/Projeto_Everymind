@@ -23,11 +23,21 @@ public class UserDAO {
     
     public void Update(User user) throws SQLException, ClassNotFoundException {
         Connection con = ConnectionFactory.getConexao();
-        PreparedStatement comand = con.prepareStatement("update login set nome = ?, cnpj = ?, email = ?, senha = ?, enderecofk = ?, tipousuariofk = ? WHERE id = ?");
+        PreparedStatement comand = con.prepareStatement("update login set name = ?, email = ?, username = ?, password = ?, endereco = ? WHERE id = ?");
         comand.setString(1, user.getName());
         comand.setString(2, user.getEmail());
         comand.setString(3, user.getUsername());
         comand.setString(4, user.getPassword());
+        if (user.getEndereco() != null) comand.setInt(5, user.getEndereco().getId());
+        comand.setInt(6, user.getId());
+        comand.execute();
+        con.close();
+    }
+    
+    public void Delete(User user) throws SQLException, ClassNotFoundException {
+        Connection con = ConnectionFactory.getConexao();
+        PreparedStatement comand = con.prepareStatement("delete from login where id = ?");
+        comand.setInt(1, user.getId());
         comand.execute();
         con.close();
     }
@@ -90,6 +100,23 @@ public class UserDAO {
         PreparedStatement comand = con.prepareStatement("select * from login where email = ? or username = ?");
         comand.setString(1, user.getEmail());
         comand.setString(2, user.getUsername());
+        ResultSet result = comand.executeQuery();
+        User searchUser = new User();
+        if (result.next()) {
+            searchUser.setId(Integer.parseInt(result.getString("id")));
+            searchUser.setName(result.getString("name"));
+            searchUser.setEmail(result.getString("email"));
+            searchUser.setUsername(result.getString("username"));
+            searchUser.setPassword(result.getString("password"));
+        }
+        con.close();
+        return searchUser;
+    }
+    
+    public User SelectUserById(User user) throws SQLException, ClassNotFoundException {
+        Connection con = ConnectionFactory.getConexao();
+        PreparedStatement comand = con.prepareStatement("select * from login where id = ?");
+        comand.setInt(1, user.getId());
         ResultSet result = comand.executeQuery();
         User searchUser = new User();
         if (result.next()) {

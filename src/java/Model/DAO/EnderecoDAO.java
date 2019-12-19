@@ -11,15 +11,24 @@ import java.util.List;
 
 public class EnderecoDAO {
     
-    public void Criar(Endereco endereco) throws ClassNotFoundException, SQLException {
+    public int Criar(Endereco endereco) throws ClassNotFoundException, SQLException {
         Connection con = ConnectionFactory.getConexao();
-        PreparedStatement comand = con.prepareStatement("insert into endereco (id, logradouro, cep, numero, complemento) values (nextval('seq_endereco'),?,?,?,?");
+        PreparedStatement comand = con.prepareStatement("insert into endereco (id, logradouro, cep, numero, complemento) values (nextval('seq_endereco'),?,?,?,?)");
         comand.setString(1, endereco.getLogradouro());
         comand.setString(2, endereco.getCep());
         comand.setInt(3, endereco.getNumero());
         comand.setString(4, endereco.getComplemento());
         comand.execute();
+        comand = con.prepareStatement("SELECT currval('seq_endereco')");
+        ResultSet resultado = comand.executeQuery();
+
+        int idEndereco = 0;
+        if (resultado.next()) {
+            idEndereco = (resultado.getInt("currval"));
+
+        }
         con.close();
+        return idEndereco;
     }
     
     public void Alterar(Endereco endereco) throws ClassNotFoundException, SQLException {
@@ -31,7 +40,7 @@ public class EnderecoDAO {
         comand.setString(4, endereco.getComplemento());
         comand.execute();
         con.close();
-    }   
+    }
     
     public List<Endereco> Consultar() throws ClassNotFoundException, SQLException {
         Connection con = ConnectionFactory.getConexao();
